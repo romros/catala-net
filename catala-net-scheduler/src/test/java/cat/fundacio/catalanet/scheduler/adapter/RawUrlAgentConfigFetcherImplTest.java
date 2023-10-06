@@ -22,7 +22,7 @@ public class RawUrlAgentConfigFetcherImplTest {
     @Autowired
     private Device currentDevice;
 
-    @Value("${cerques_agents.url}")
+    @Value("${agentconfig.config_url}")
     private String cerquesAgentsUrl;
 
     @Test

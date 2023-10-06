@@ -24,7 +24,7 @@ public class SchedulerConfig {
 
     // Aquí definim "rawUrlAgentConfigFetcher" com a valor per defecte si no es
     // proporciona un valor en el fitxer de propietats
-    @Value("${agentconfig.fetcher.strategy:rawUrlAgentConfigFetcher}")
+    @Value("${agentconfig.fetcher_strategy:rawUrlAgentConfigFetcher}")
     private String strategyBeanName;
 
     @Bean
