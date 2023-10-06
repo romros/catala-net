@@ -1,7 +1,0 @@
-cat\fundacio\catalanet\search\util\FileNameUtils.class
-cat\fundacio\catalanet\search\adapter\SearchEngineAdapterGoogleImpl.class
-cat\fundacio\catalanet\search\adapter\SearchEngineAdapter.class
-cat\fundacio\catalanet\search\config\ConfigCerques.class
-cat\fundacio\catalanet\search\service\SearchService.class
-cat\fundacio\catalanet\search\service\intern\SearchServiceImpl.class
-cat\fundacio\catalanet\search\model\SearchResultDTO.class
