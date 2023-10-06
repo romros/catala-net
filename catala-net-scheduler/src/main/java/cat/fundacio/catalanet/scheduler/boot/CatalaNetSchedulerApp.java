@@ -1,4 +1,4 @@
-package cat.fundacio.monitor.boot;
+package cat.fundacio.catalanet.scheduler.boot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

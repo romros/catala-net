@@ -14,7 +14,12 @@
     <description>Mòdul per gestionar les tasques programades i les seves execucions.</description>
 
     <dependencies>
+
         <!-- Dependència del mòdul core-db-agent -->
+        <dependency>
+            <groupId>cat.fundacio.catalanet</groupId>
+            <artifactId>catala-net-core</artifactId>
+        </dependency>
         <dependency>
             <groupId>cat.fundacio.catalanet</groupId>
             <artifactId>catala-net-cerques</artifactId>
