@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "google.search.url",
+      "type": "java.lang.String",
+      "description": "La url de cerca per google search. Per defecte: http://www.google.com/search?q="
+    }
+  ]
+}

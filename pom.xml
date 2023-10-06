@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>cat.fundacio.catalanet</groupId>
+	<artifactId>catala-net-tracker</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>CatalàNet Tracker</name>
+	<description>Agent de monitorització per a registrar i analitzar la prevalença del català en cercadors i llocs d'Internet, amb l'objectiu de seguir l'evolució de la seva presència al llarg del temps.</description>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.1.4</version>
+	</parent>
+	<properties>
+		<java.version>17</java.version>
+		<!-- catalan-net dependencies -->
+		<fasterxml.version>2.15.2</fasterxml.version>
+		<lingua.version>1.2.2</lingua.version>
+		<oshi.version>6.4.0</oshi.version>
+		<!-- Versions of other dependencies not in spring IO. -->
+		<easymock.version>4.3</easymock.version>
+		<hibernate.jmx.version>3.5.6-Final</hibernate.jmx.version>
+		<jamon.version>2.82</jamon.version>
+		<spring-security.version>5.8.0</spring-security.version>
+		<!-- Enable maven support for Servlet 3 - no web.xml -->
+		<failOnMissingWebXml>false</failOnMissingWebXml>
+		<!-- Add JAXB that is dropped in JDK 9 -->
+		<jaxb-api.version>2.3.0</jaxb-api.version>
+		<!-- Without this, Eclipse will flag an error on pom.xml -->
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+		<!-- jsoup -->
+		<jsoup.version>1.16.1</jsoup.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<!-- Dependencies we may need, and their versions -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>cat.fundacio.catalanet</groupId>
+				<artifactId>catala-net-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>cat.fundacio.catalanet</groupId>
+				<artifactId>catala-net-cerques</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<!-- Other -->
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-jmx</artifactId>
+				<version>${hibernate.jmx.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.easymock</groupId>
+				<artifactId>easymock</artifactId>
+				<version>${easymock.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring.boot.maven.plugin}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-annotations</artifactId>
+				<version>${fasterxml.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${fasterxml.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.pemistahl</groupId>
+				<artifactId>lingua</artifactId>
+				<version>${lingua.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.oshi</groupId>
+				<artifactId>oshi-core</artifactId>
+				<version>${oshi.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jsoup</groupId>
+				<artifactId>jsoup</artifactId>
+				<version>${jsoup.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<!-- Ensure resources are exported correctly - conflict with Spring Boot -->
+		<resources>
+			<resource>
+				<directory>${project.basedir}/src/main/resources</directory>
+				<includes>
+					<include>**/*</include>
+				</includes>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<!-- Set Java version -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<!-- Set Project Natures -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.10</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+					<wtpversion>2.0</wtpversion>
+					<sourceIncludes>
+						<sourceInclude>**/*.*</sourceInclude>
+					</sourceIncludes>
+					<!-- All of them are listed manually to solve a limitation of the
+                        mvn eclipse plugin (https://issuetracker.springsource.com/browse/STS-2938).
+                        This might cause some issues when migrating to the next version of Eclipse/STS)
+                        also see spring-intro/pom.xml (projectnatures defined explicitely there
+                        as well) -->
+					<projectnatures>
+						<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+						<projectnature>org.eclipse.jdt.core.javanature</projectnature>
+						<projectnature>org.eclipse.wst.common.project.facet.core.nature</projectnature>
+						<projectnature>org.eclipse.wst.common.modulecore.ModuleCoreNature</projectnature>
+						<projectnature>org.eclipse.jem.workbench.JavaEMFNature</projectnature>
+					</projectnatures>
+					<additionalBuildcommands>
+						<name>org.springframework.ide.eclipse.core.springbuilder</name>
+					</additionalBuildcommands>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<includes>
+						<include>**/*Tests.java</include>
+					</includes>
+				</configuration>
+			</plugin>
+			<!-- Ensure resources are handled correctly -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+			<!-- put this only in the child that need has main and to be exec -->
+			<!--
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			-->
+		</plugins>
+	</build>
+
+	<modules>
+		<module>catala-net-core</module>
+		<module>catala-net-cerques</module>
+		<module>catala-net-scheduler</module>
+		<!-- 
+			<module>catala-net-search</module>
+		-->
+	</modules>
+</project>

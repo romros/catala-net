@@ -1,0 +1,16 @@
+cat\fundacio\catalanet\core\model\SearchResult.class
+cat\fundacio\catalanet\core\service\intern\DeviceServiceImpl.class
+cat\fundacio\catalanet\core\service\intern\UriEntityserviceImpl.class
+cat\fundacio\catalanet\core\repository\SearchQueryRepository.class
+cat\fundacio\catalanet\core\model\SearchQuery.class
+cat\fundacio\catalanet\core\repository\SearchResultRepository.class
+cat\fundacio\catalanet\core\boot\ClientmonitorApplication.class
+cat\fundacio\catalanet\core\repository\SearchRepository.class
+cat\fundacio\catalanet\core\model\UriEntity.class
+cat\fundacio\catalanet\core\model\Search.class
+cat\fundacio\catalanet\core\model\Device.class
+cat\fundacio\catalanet\core\repository\UriEntityRepository.class
+cat\fundacio\catalanet\core\service\DeviceService.class
+cat\fundacio\catalanet\core\repository\DeviceRepository.class
+cat\fundacio\catalanet\core\config\CoreConfig.class
+cat\fundacio\catalanet\core\service\UriEntityService.class
