@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import cat.fundacio.catalanet.core.model.Device;
 import cat.fundacio.catalanet.core.service.DeviceService;
+import ch.qos.logback.core.util.SystemInfo;
 
 @Configuration
 @PropertySource("classpath:core.properties")
@@ -25,5 +26,10 @@ public class CoreConfig {
     @Bean
     public Device currentDevice() {
         return this.currentDevice;
+    }
+
+    @Bean
+    public SystemInfo systemInfo() {
+        return new SystemInfo();
     }
 }

@@ -5,7 +5,6 @@ import java.security.MessageDigest;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cat.fundacio.catalanet.core.model.Device;
@@ -19,12 +18,15 @@ import oshi.software.os.OperatingSystem;
 public class DeviceServiceImpl implements DeviceService {
 
     private static Device currentDevice = null;
-
-    @Autowired
+    private SystemInfo si;
     private DeviceRepository deviceRepository;
 
+    public DeviceServiceImpl(DeviceRepository deviceRepository, SystemInfo systemInfo) {
+        this.deviceRepository = deviceRepository;
+        this.si = systemInfo;
+    }
+
     public Device detectCurrentDevice() {
-        SystemInfo si = new SystemInfo();
         OperatingSystem os = si.getOperatingSystem();
         HardwareAbstractionLayer hal = si.getHardware();
 

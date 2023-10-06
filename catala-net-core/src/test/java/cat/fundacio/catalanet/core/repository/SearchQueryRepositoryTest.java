@@ -22,7 +22,6 @@ import cat.fundacio.catalanet.core.model.Device;
 import cat.fundacio.catalanet.core.model.Search;
 import cat.fundacio.catalanet.core.model.SearchQuery;
 import cat.fundacio.catalanet.core.service.DeviceService;
-import cat.fundacio.catalanet.core.service.intern.DeviceServiceImpl;
 
 @DataJpaTest
 @ContextConfiguration(classes = { ClientmonitorApplication.class })
@@ -32,7 +31,7 @@ public class SearchQueryRepositoryTest {
     @MockBean
     private Device currentDevice;
 
-    @MockBean
+    @Autowired
     private DeviceService deviceService;
 
     @Autowired
@@ -45,9 +44,7 @@ public class SearchQueryRepositoryTest {
     @BeforeEach
     public void setUp() {
         // Fes una instancei de deviceServiceImpl
-        DeviceService deviceService = new DeviceServiceImpl();
         this.currentDevice = deviceService.detectCurrentDevice();
-        this.deviceService = deviceService;
     }
 
     @Test

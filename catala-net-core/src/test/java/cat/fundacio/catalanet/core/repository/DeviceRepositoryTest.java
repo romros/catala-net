@@ -11,7 +11,6 @@ import org.springframework.test.context.ContextConfiguration;
 import cat.fundacio.catalanet.core.boot.ClientmonitorApplication;
 import cat.fundacio.catalanet.core.model.Device;
 import cat.fundacio.catalanet.core.service.DeviceService;
-import cat.fundacio.catalanet.core.service.intern.DeviceServiceImpl;
 
 import java.util.Optional;
 
@@ -30,11 +29,13 @@ public class DeviceRepositoryTest {
     @Autowired
     private DeviceRepository deviceRepository;
 
+    @Autowired
+    private DeviceService deviceService;
+
     // fes un setUp() per aquesta classe
     @BeforeEach
     public void setUp() {
         // Fes una instancei de deviceServiceImpl
-        DeviceService deviceService = new DeviceServiceImpl();
         this.currentDevice = deviceService.detectCurrentDevice();
     }
 
