@@ -7,45 +7,28 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Date;
 
 import org.hibernate.exception.ConstraintViolationException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 
-import cat.fundacio.catalanet.core.boot.ClientmonitorApplication;
-import cat.fundacio.catalanet.core.model.Device;
+import cat.fundacio.catalanet.core.config.CoreConfig;
 import cat.fundacio.catalanet.core.model.Search;
 import cat.fundacio.catalanet.core.model.SearchQuery;
-import cat.fundacio.catalanet.core.service.DeviceService;
 
 @DataJpaTest
-@ContextConfiguration(classes = { ClientmonitorApplication.class })
+@ContextConfiguration(classes = { CoreConfig.class })
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class SearchQueryRepositoryTest {
-
-    @MockBean
-    private Device currentDevice;
-
-    @Autowired
-    private DeviceService deviceService;
 
     @Autowired
     private TestEntityManager entityManager;
 
     @Autowired
     private SearchQueryRepository searchQueryRepository;
-
-    // fes un setUp() per aquesta classe
-    @BeforeEach
-    public void setUp() {
-        // Fes una instancei de deviceServiceImpl
-        this.currentDevice = deviceService.detectCurrentDevice();
-    }
 
     @Test
     public void givenNewSearchQuery_whenSaved_thenSearchesIsNotNullAndSizeZero() {

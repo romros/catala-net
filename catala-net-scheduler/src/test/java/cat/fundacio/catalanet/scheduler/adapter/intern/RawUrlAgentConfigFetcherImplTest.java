@@ -1,6 +1,7 @@
-package cat.fundacio.catalanet.scheduler.adapter;
+package cat.fundacio.catalanet.scheduler.adapter.intern;
 
 import cat.fundacio.catalanet.core.model.Device;
+import cat.fundacio.catalanet.scheduler.adapter.AgentConfigFetcher;
 import cat.fundacio.catalanet.scheduler.config.SchedulerConfig;
 import cat.fundacio.catalanet.scheduler.model.AgentConfigDTO;
 import org.junit.jupiter.api.Test;

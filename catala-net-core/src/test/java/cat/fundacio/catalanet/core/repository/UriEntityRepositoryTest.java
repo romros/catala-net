@@ -15,14 +15,14 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 
-import cat.fundacio.catalanet.core.boot.ClientmonitorApplication;
+import cat.fundacio.catalanet.core.config.CoreConfig;
 import cat.fundacio.catalanet.core.model.Device;
 import cat.fundacio.catalanet.core.model.Search;
 import cat.fundacio.catalanet.core.model.SearchResult;
 import cat.fundacio.catalanet.core.model.UriEntity;
 
 @DataJpaTest
-@ContextConfiguration(classes = ClientmonitorApplication.class) // Aquesta és la classe amb @SpringBootApplication
+@ContextConfiguration(classes = CoreConfig.class) // Aquesta és la classe amb @SpringBootApplication
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class UriEntityRepositoryTest {
 

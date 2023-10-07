@@ -1,4 +1,4 @@
-package cat.fundacio.catalanet.scheduler.service;
+package cat.fundacio.catalanet.scheduler.service.intern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +10,7 @@ import cat.fundacio.catalanet.core.model.SearchQuery;
 import cat.fundacio.catalanet.core.repository.SearchQueryRepository;
 import cat.fundacio.catalanet.scheduler.adapter.AgentConfigFetcher;
 import cat.fundacio.catalanet.scheduler.model.AgentConfigDTO;
+import cat.fundacio.catalanet.scheduler.service.AgentConfigService;
 
 import java.util.List;
 import java.util.Map;
