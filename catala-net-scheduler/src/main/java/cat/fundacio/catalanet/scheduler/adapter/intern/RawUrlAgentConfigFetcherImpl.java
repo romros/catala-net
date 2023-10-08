@@ -3,6 +3,7 @@ package cat.fundacio.catalanet.scheduler.adapter.intern;
 import cat.fundacio.catalanet.scheduler.adapter.AgentConfigFetcher;
 import cat.fundacio.catalanet.scheduler.model.AgentConfigDTO;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -46,32 +47,58 @@ public class RawUrlAgentConfigFetcherImpl implements AgentConfigFetcher {
 
     @Autowired
     private RestTemplate restTemplate;
+    private String responseBody;
+
+    public boolean checkInternetConnection(String source) {
+        try {
+            ResponseEntity<String> response = restTemplate.getForEntity(source, String.class);
+            if (response.getStatusCode() == HttpStatus.OK) {
+                responseBody = response.getBody();
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            // Si hi ha una excepció (per exemple, perquè no es pot resoldre el nom
+            // d'amfitrió o no hi ha connexió),
+            // llavors retornem false indicant que no hi ha connexió a Internet.
+            return false;
+        }
+    }
+
+    private double measureDownloadSpeed() {
+        return 0;
+    }
 
     @Override
     public AgentConfigDTO fetch(String source, String deviceId) {
-        ResponseEntity<String> response = restTemplate.getForEntity(source, String.class);
-        if (response.getStatusCode() == HttpStatus.OK) {
-            String responseBody = response.getBody();
-            ObjectMapper objectMapper = new ObjectMapper();
-            try {
-                System.out.println("Raw JSON response:");
-                System.out.println(responseBody);
 
-                AgentConfigDTO config = objectMapper.readValue(responseBody, AgentConfigDTO.class);
-                List<String> deviceQueries = config.getDeviceSearchQueries().get(deviceId);
-                if (deviceQueries != null) {
-                    AgentConfigDTO newConfig = new AgentConfigDTO(Collections.singletonMap(deviceId, deviceQueries));
-                    return newConfig;
-                } else {
-                    throw new RuntimeException("Device ID not found in the fetched JSON.");
-                }
-
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException("Error parsing JSON from raw URL.", e);
-            }
-        } else {
-            throw new RuntimeException("Failed to fetch from raw URL. Status: " + response.getStatusCode());
+        if (!checkInternetConnection(source)) {
+            throw new RuntimeException("No hi ha connexió a Internet.");
         }
+
+        double speed = measureDownloadSpeed();
+        if (speed < VELLMINIMA) { // Pots definir `VELLMINIMA` com a constant amb el valor mínim acceptable.
+            throw new RuntimeException("L'amplada de banda no és suficient. Velocitat: " + speed + " MB/s");
+        }
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            System.out.println("Raw JSON response:");
+            System.out.println(responseBody);
+
+            AgentConfigDTO config = objectMapper.readValue(responseBody, AgentConfigDTO.class);
+            List<String> deviceQueries = config.getDeviceSearchQueries().get(deviceId);
+            if (deviceQueries != null) {
+                AgentConfigDTO newConfig = new AgentConfigDTO(Collections.singletonMap(deviceId, deviceQueries));
+                return newConfig;
+            } else {
+                throw new RuntimeException("Device ID not found in the fetched JSON.");
+            }
+
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Error parsing JSON from raw URL.", e);
+        }
+
     }
 
 }

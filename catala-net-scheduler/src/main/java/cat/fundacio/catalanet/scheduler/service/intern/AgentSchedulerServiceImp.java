@@ -40,6 +40,8 @@ public class AgentSchedulerServiceImp implements AgentSchedulerService {
 
     private boolean checkCPULoad() {
         double currentLoad = deviceUtils.cpuLoad();
+        // log currentLoad
+        System.out.println("Current CPU load: " + currentLoad);
         return currentLoad < cpuLoadThreshold;
     }
 
