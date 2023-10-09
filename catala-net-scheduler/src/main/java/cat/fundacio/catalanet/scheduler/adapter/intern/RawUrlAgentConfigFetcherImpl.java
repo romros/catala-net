@@ -65,20 +65,11 @@ public class RawUrlAgentConfigFetcherImpl implements AgentConfigFetcher {
         }
     }
 
-    private double measureDownloadSpeed() {
-        return 0;
-    }
-
     @Override
     public AgentConfigDTO fetch(String source, String deviceId) {
 
         if (!checkInternetConnection(source)) {
             throw new RuntimeException("No hi ha connexió a Internet.");
-        }
-
-        double speed = measureDownloadSpeed();
-        if (speed < VELLMINIMA) { // Pots definir `VELLMINIMA` com a constant amb el valor mínim acceptable.
-            throw new RuntimeException("L'amplada de banda no és suficient. Velocitat: " + speed + " MB/s");
         }
 
         ObjectMapper objectMapper = new ObjectMapper();
